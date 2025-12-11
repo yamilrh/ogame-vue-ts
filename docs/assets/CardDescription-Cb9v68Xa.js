@@ -1,1 +1,0 @@
-import{Bt as e,Fn as t,Gn as n,Jn as r,Mn as i,ir as a,rr as o}from"./index-BpOElaf9.js";var s=t({__name:`CardDescription`,props:{class:{}},setup(t){let s=t;return(t,c)=>(n(),i(`p`,{"data-slot":`card-description`,class:a(o(e)(`text-muted-foreground text-sm`,s.class))},[r(t.$slots,`default`)],2))}});export{s as t};
