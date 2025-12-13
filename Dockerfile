@@ -1,22 +1,22 @@
 # ========= 阶段1：构建 =========
 FROM node:20-alpine AS builder
 
-# 使用国内镜像加速（可选）
-RUN npm config set registry https://registry.npmmirror.com
-
 WORKDIR /app
 
-# 先复制依赖文件，利用缓存
-COPY package.json pnpm-lock.yaml* ./
+# 使用国内镜像加速（可选但强烈建议）
+RUN npm config set registry https://registry.npmmirror.com
 
-# 安装 pnpm 并安装依赖
-RUN corepack enable && corepack prepare pnpm@latest --activate \
-    && pnpm install --frozen-lockfile
+# 直接用 npm 全局安装 pnpm（最稳，最快）
+RUN npm install -g pnpm
 
-# 复制源码
+# 复制依赖文件先缓存
+COPY package.json pnpm-lock.yaml ./
+
+# 安装依赖
+RUN pnpm install --frozen-lockfile
+
+# 复制源码并构建
 COPY . .
-
-# 生产构建
 RUN pnpm run build
 
 # ========= 阶段2：运行时 =========
