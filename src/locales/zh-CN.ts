@@ -469,6 +469,11 @@ export default {
     arrivalTime: '到达时间',
     returnTime: '返回时间',
     recallFleet: '召回舰队',
+    abortMission: '终止任务',
+    abortMissionTitle: '确认终止任务',
+    abortMissionWarning: '警告：终止任务将永久损失 {ships} 艘舰船和 {resources} 资源！\n\n此操作不可撤销，舰队和资源将不会返回。',
+    abortMissionSuccess: '任务已终止',
+    abortMissionSuccessMessage: '任务已终止，舰队和资源已损失。',
     sendFailed: '派遣失败',
     sendFailedMessage: '请检查舰队数量、燃料是否充足，或载货量是否超出限制。',
     recallFailed: '召回失败',
@@ -751,6 +756,8 @@ export default {
     officers: '军官',
     modifyResources: '修改资源',
     resourcesDesc: '快速修改星球资源数量',
+    maxAllResources: '一键拉满',
+    maxAllResourcesSuccess: '所有资源已拉满',
     modifyBuildings: '修改建筑',
     buildingsDesc: '快速设置建筑等级',
     modifyResearch: '修改科技',
@@ -790,7 +797,11 @@ export default {
     dangerZone: '危险区域',
     dangerZoneDesc: '以下操作不可撤销，请谨慎操作',
     resetGame: '重置游戏',
-    resetGameConfirm: '确定要重置游戏吗？这将删除所有数据！'
+    resetGameConfirm: '确定要重置游戏吗？这将删除所有数据！',
+    completeAllQueues: '一键完成所有队列',
+    completeAllQueuesDesc: '立即完成所有建筑、科技、舰船、防御队列和飞行任务',
+    completeQueues: '完成队列',
+    completeQueuesSuccess: '已完成 {buildingCount} 个建筑队列、{researchCount} 个科技队列、{missionCount} 个飞行任务、{missileCount} 个导弹任务'
   },
   alerts: {
     npcSpyIncoming: 'NPC侦查即将到达',

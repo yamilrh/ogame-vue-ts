@@ -473,6 +473,11 @@ export default {
     arrivalTime: '到着時刻',
     returnTime: '帰還時刻',
     recallFleet: '艦隊召還',
+    abortMission: '',
+    abortMissionTitle: '',
+    abortMissionWarning: '',
+    abortMissionSuccess: '',
+    abortMissionSuccessMessage: '',
     sendFailed: '派遣失敗',
     sendFailedMessage: '艦隊数、燃料の充足、または積載量の制限を確認してください。',
     recallFailed: '召還失敗',
@@ -751,6 +756,8 @@ export default {
     officers: '士官',
     modifyResources: '資源を変更',
     resourcesDesc: '惑星の資源を素早く変更',
+    maxAllResources: '',
+    maxAllResourcesSuccess: '',
     modifyBuildings: '建物を変更',
     buildingsDesc: '建物レベルを素早く設定',
     modifyResearch: '研究を変更',
@@ -790,7 +797,11 @@ export default {
     dangerZone: '危険ゾーン',
     dangerZoneDesc: '以下の操作は元に戻せません',
     resetGame: 'ゲームをリセット',
-    resetGameConfirm: 'ゲームをリセットしてもよろしいですか？すべてのデータが削除されます！'
+    resetGameConfirm: 'ゲームをリセットしてもよろしいですか？すべてのデータが削除されます！',
+    completeAllQueues: '',
+    completeAllQueuesDesc: '',
+    completeQueues: '',
+    completeQueuesSuccess: ''
   },
   alerts: {
     npcSpyIncoming: 'NPC偵察プローブが接近中',

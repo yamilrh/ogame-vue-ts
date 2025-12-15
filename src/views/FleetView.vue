@@ -303,6 +303,15 @@
               >
                 {{ t('fleetView.recallFleet') }}
               </Button>
+              <Button
+                v-if="mission.status === 'returning' || mission.status === 'arrived'"
+                @click="handleAbortMission(mission.id)"
+                variant="destructive"
+                size="sm"
+                class="w-full"
+              >
+                {{ t('fleetView.abortMission') }}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -319,7 +328,8 @@
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction>{{ t('common.confirm') }}</AlertDialogAction>
+          <AlertDialogCancel v-if="alertDialogCallback">{{ t('common.cancel') }}</AlertDialogCancel>
+          <AlertDialogAction @click="handleAlertConfirm">{{ t('common.confirm') }}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -348,6 +358,7 @@
   import {
     AlertDialog,
     AlertDialogAction,
+    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
@@ -377,6 +388,7 @@
   const alertDialogOpen = ref(false)
   const alertDialogTitle = ref('')
   const alertDialogMessage = ref('')
+  const alertDialogCallback = ref<(() => void) | null>(null)
 
   // 当前时间（响应式）
   const currentTime = ref(Date.now())
@@ -688,8 +700,52 @@
     if (!success) {
       alertDialogTitle.value = t('fleetView.recallFailed')
       alertDialogMessage.value = t('fleetView.recallFailedMessage')
+      alertDialogCallback.value = null
       alertDialogOpen.value = true
     }
+  }
+
+  // 处理终止任务（返航中）
+  const handleAbortMission = (missionId: string) => {
+    const mission = gameStore.player.fleetMissions.find(m => m.id === missionId)
+    if (!mission) return
+
+    // 计算损失资源总量
+    const totalResources = mission.cargo.metal + mission.cargo.crystal + mission.cargo.deuterium + mission.cargo.darkMatter
+
+    // 计算舰队总数
+    const totalShips = Object.values(mission.fleet).reduce((sum, count) => sum + count, 0)
+
+    alertDialogTitle.value = t('fleetView.abortMissionTitle')
+    alertDialogMessage.value = t('fleetView.abortMissionWarning', {
+      ships: totalShips.toString(),
+      resources: formatNumber(totalResources)
+    })
+    alertDialogCallback.value = () => {
+      abortMission(missionId)
+    }
+    alertDialogOpen.value = true
+  }
+
+  // 终止任务（不返还任何东西）
+  const abortMission = (missionId: string) => {
+    const missionIndex = gameStore.player.fleetMissions.findIndex(m => m.id === missionId)
+    if (missionIndex > -1) {
+      gameStore.player.fleetMissions.splice(missionIndex, 1)
+      alertDialogTitle.value = t('fleetView.abortMissionSuccess')
+      alertDialogMessage.value = t('fleetView.abortMissionSuccessMessage')
+      alertDialogCallback.value = null
+      alertDialogOpen.value = true
+    }
+  }
+
+  // 处理 AlertDialog 确认
+  const handleAlertConfirm = () => {
+    if (alertDialogCallback.value) {
+      alertDialogCallback.value()
+      alertDialogCallback.value = null
+    }
+    alertDialogOpen.value = false
   }
 
   // 获取任务剩余时间

@@ -475,6 +475,11 @@ export default {
     arrivalTime: '到達時間',
     returnTime: '返回時間',
     recallFleet: '召回艦隊',
+    abortMission: '',
+    abortMissionTitle: '',
+    abortMissionWarning: '',
+    abortMissionSuccess: '',
+    abortMissionSuccessMessage: '',
     sendFailed: '派遣失敗',
     sendFailedMessage: '請檢查艦隊數量、燃料是否充足，或載貨量是否超出限制。',
     recallFailed: '召回失敗',
@@ -753,6 +758,8 @@ export default {
     officers: '軍官',
     modifyResources: '修改資源',
     resourcesDesc: '快速修改星球資源數量',
+    maxAllResources: '',
+    maxAllResourcesSuccess: '',
     modifyBuildings: '修改建築',
     buildingsDesc: '快速設定建築等級',
     modifyResearch: '修改科技',
@@ -792,7 +799,11 @@ export default {
     dangerZone: '危險區域',
     dangerZoneDesc: '以下操作不可撤銷，請謹慎操作',
     resetGame: '重置遊戲',
-    resetGameConfirm: '確定要重置遊戲嗎？這將刪除所有資料！'
+    resetGameConfirm: '確定要重置遊戲嗎？這將刪除所有資料！',
+    completeAllQueues: '',
+    completeAllQueuesDesc: '',
+    completeQueues: '',
+    completeQueuesSuccess: ''
   },
   alerts: {
     npcSpyIncoming: 'NPC偵查即將到達',

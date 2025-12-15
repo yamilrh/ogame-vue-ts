@@ -2,9 +2,7 @@ name: 构建 Github Pages
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-
+    branches: [ main ] # 如果你的主分支叫 master，请改为 master
 
 permissions:
   contents: read

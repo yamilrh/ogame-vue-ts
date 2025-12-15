@@ -475,6 +475,11 @@ export default {
     arrivalTime: 'Ankunftszeit',
     returnTime: 'Rückkehrzeit',
     recallFleet: 'Flotte zurückrufen',
+    abortMission: '',
+    abortMissionTitle: '',
+    abortMissionWarning: '',
+    abortMissionSuccess: '',
+    abortMissionSuccessMessage: '',
     sendFailed: 'Senden fehlgeschlagen',
     sendFailedMessage: 'Bitte überprüfen Sie Flottenanzahl, Treibstoffverfügbarkeit oder Ladekapazitätsgrenzen.',
     recallFailed: 'Zurückrufen fehlgeschlagen',
@@ -760,6 +765,8 @@ export default {
     officers: 'Offiziere',
     modifyResources: 'Ressourcen ändern',
     resourcesDesc: 'Planetenressourcen schnell ändern',
+    maxAllResources: '',
+    maxAllResourcesSuccess: '',
     modifyBuildings: 'Gebäude ändern',
     buildingsDesc: 'Gebäudelevel schnell festlegen',
     modifyResearch: 'Forschung ändern',
@@ -799,7 +806,11 @@ export default {
     dangerZone: 'Gefahrenzone',
     dangerZoneDesc: 'Die folgenden Vorgänge sind irreversibel',
     resetGame: 'Spiel zurücksetzen',
-    resetGameConfirm: 'Möchten Sie das Spiel wirklich zurücksetzen? Alle Daten werden gelöscht!'
+    resetGameConfirm: 'Möchten Sie das Spiel wirklich zurücksetzen? Alle Daten werden gelöscht!',
+    completeAllQueues: '',
+    completeAllQueuesDesc: '',
+    completeQueues: '',
+    completeQueuesSuccess: ''
   },
   alerts: {
     npcSpyIncoming: 'NPC-Spionagesonde nähert sich',

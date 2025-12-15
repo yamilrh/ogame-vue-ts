@@ -473,6 +473,11 @@ export default {
     arrivalTime: '도착 시간',
     returnTime: '귀환 시간',
     recallFleet: '함대 소환',
+    abortMission: '',
+    abortMissionTitle: '',
+    abortMissionWarning: '',
+    abortMissionSuccess: '',
+    abortMissionSuccessMessage: '',
     sendFailed: '파견 실패',
     sendFailedMessage: '함대 수, 연료 충분 여부 또는 적재량 한계를 확인하세요.',
     recallFailed: '소환 실패',
@@ -752,6 +757,8 @@ export default {
     officers: '장교',
     modifyResources: '자원 수정',
     resourcesDesc: '행성 자원을 빠르게 수정',
+    maxAllResources: '',
+    maxAllResourcesSuccess: '',
     modifyBuildings: '건물 수정',
     buildingsDesc: '건물 레벨을 빠르게 설정',
     modifyResearch: '연구 수정',
@@ -791,7 +798,11 @@ export default {
     dangerZone: '위험 구역',
     dangerZoneDesc: '다음 작업은 되돌릴 수 없습니다',
     resetGame: '게임 초기화',
-    resetGameConfirm: '게임을 초기화하시겠습니까? 모든 데이터가 삭제됩니다!'
+    resetGameConfirm: '게임을 초기화하시겠습니까? 모든 데이터가 삭제됩니다!',
+    completeAllQueues: '',
+    completeAllQueuesDesc: '',
+    completeQueues: '',
+    completeQueuesSuccess: ''
   },
   alerts: {
     npcSpyIncoming: 'NPC 정찰 프로브 접근 중',

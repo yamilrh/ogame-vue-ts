@@ -60,6 +60,11 @@
             <CardDescription>{{ t('gmView.resourcesDesc') }}</CardDescription>
           </CardHeader>
           <CardContent class="space-y-4">
+            <!-- 一键拉满按钮 -->
+            <Button @click="maxAllResources" variant="outline" class="w-full">
+              {{ t('gmView.maxAllResources') }}
+            </Button>
+
             <div v-for="resource in resourceTypes" :key="resource" class="space-y-2">
               <Label>{{ t(`resources.${resource}`) }}</Label>
               <div class="flex gap-2">
@@ -242,6 +247,17 @@
       </CardContent>
     </Card>
 
+    <!-- 队列管理 -->
+    <Card class="border-primary">
+      <CardHeader>
+        <CardTitle>{{ t('gmView.completeAllQueues') }}</CardTitle>
+        <CardDescription>{{ t('gmView.completeAllQueuesDesc') }}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Button @click="completeAllQueues" variant="default" class="w-full">{{ t('gmView.completeQueues') }}</Button>
+      </CardContent>
+    </Card>
+
     <!-- 危险操作 -->
     <Card class="border-destructive">
       <CardHeader>
@@ -289,6 +305,7 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { toast } from 'vue-sonner'
   import { useGameStore } from '@/stores/gameStore'
   import { useNPCStore } from '@/stores/npcStore'
   import { useUniverseStore } from '@/stores/universeStore'
@@ -591,5 +608,113 @@
     npcPlanet.fleet[ShipType.Battlecruiser] = (npcPlanet.fleet[ShipType.Battlecruiser] || 0) + 20
 
     showAlert(t('gmView.npcFleetInitialized', { npcName: selectedNPC.value.name }), t('gmView.npcFleetDetails'))
+  }
+
+  // 一键拉满所有资源
+  const maxAllResources = () => {
+    if (!selectedPlanet.value) return
+
+    const maxAmount = 1000000000 // 10亿
+    selectedPlanet.value.resources.metal = maxAmount
+    selectedPlanet.value.resources.crystal = maxAmount
+    selectedPlanet.value.resources.deuterium = maxAmount
+    selectedPlanet.value.resources.darkMatter = maxAmount
+
+    toast.success(t('gmView.maxAllResourcesSuccess'))
+  }
+
+  // 一键完成所有队列和任务
+  const completeAllQueues = () => {
+    const now = Date.now()
+    let buildingCount = 0
+    let researchCount = 0
+    let missionCount = 0
+    let missileCount = 0
+
+    // 完成所有星球的建筑队列
+    gameStore.player.planets.forEach(planet => {
+      planet.buildQueue.forEach(item => {
+        if (item.endTime > now) {
+          // 根据队列类型完成建筑/拆除/舰船/防御
+          if (item.type === 'building') {
+            planet.buildings[item.itemType as BuildingType] = item.targetLevel || 0
+          } else if (item.type === 'demolish') {
+            planet.buildings[item.itemType as BuildingType] = item.targetLevel || 0
+          } else if (item.type === 'ship') {
+            planet.fleet[item.itemType as ShipType] = (planet.fleet[item.itemType as ShipType] || 0) + (item.quantity || 0)
+          } else if (item.type === 'defense') {
+            planet.defense[item.itemType as DefenseType] = (planet.defense[item.itemType as DefenseType] || 0) + (item.quantity || 0)
+          }
+          buildingCount++
+        }
+      })
+      planet.buildQueue = []
+    })
+
+    // 完成科技队列
+    gameStore.player.researchQueue.forEach(item => {
+      if (item.endTime > now && item.type === 'technology') {
+        gameStore.player.technologies[item.itemType as TechnologyType] = item.targetLevel || 0
+        researchCount++
+      }
+    })
+    gameStore.player.researchQueue = []
+
+    // 完成所有飞行任务（设置到达时间为现在，让游戏逻辑自动处理）
+    gameStore.player.fleetMissions.forEach(mission => {
+      if (mission.status === 'outbound') {
+        // 计算原始飞行时间
+        const originalFlightTime = mission.arrivalTime - mission.departureTime
+        // 将到达时间设置为现在减1毫秒，确保游戏逻辑能立即检测到
+        mission.arrivalTime = now - 1
+        // 同时更新返回时间为：现在 + 原始飞行时间 - 1毫秒
+        mission.returnTime = now + originalFlightTime - 1
+        missionCount++
+      } else if (mission.status === 'returning') {
+        // 返航中的任务设置返回时间为现在减1毫秒，确保游戏逻辑能立即检测到
+        if (mission.returnTime) {
+          mission.returnTime = now - 1
+        }
+        missionCount++
+      } else if (mission.status === 'arrived') {
+        // 修复卡在 arrived 状态的任务
+        // 将状态改为 returning 并设置返回时间为现在
+        mission.status = 'returning'
+        mission.returnTime = now - 1
+        missionCount++
+      }
+    })
+
+    // 完成所有NPC任务
+    npcStore.npcs.forEach(npc => {
+      if (npc.fleetMissions) {
+        npc.fleetMissions.forEach(mission => {
+          if (mission.status === 'outbound') {
+            const originalFlightTime = mission.arrivalTime - mission.departureTime
+            mission.arrivalTime = now - 1
+            mission.returnTime = now + originalFlightTime - 1
+          } else if (mission.status === 'returning' && mission.returnTime) {
+            mission.returnTime = now - 1
+          }
+        })
+      }
+    })
+
+    // 完成所有导弹攻击（设置到达时间为现在，让游戏逻辑自动处理）
+    gameStore.player.missileAttacks.forEach(attack => {
+      if (attack.status === 'flying') {
+        attack.arrivalTime = now - 1
+        missileCount++
+      }
+    })
+
+    toast.success(
+      t('gmView.completeQueuesSuccess', {
+        buildingCount,
+        researchCount,
+        missionCount,
+        missileCount
+      })
+    )
   }
 </script>

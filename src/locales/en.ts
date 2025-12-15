@@ -475,6 +475,11 @@ export default {
     arrivalTime: 'Arrival Time',
     returnTime: 'Return Time',
     recallFleet: 'Recall Fleet',
+    abortMission: 'Abort Mission',
+    abortMissionTitle: 'Confirm Abort Mission',
+    abortMissionWarning: 'WARNING: Aborting this mission will permanently lose {ships} ships and {resources} resources!\n\nThis action is irreversible and the fleet and resources will not return.',
+    abortMissionSuccess: 'Mission Aborted',
+    abortMissionSuccessMessage: 'Mission has been aborted, fleet and resources are lost.',
     sendFailed: 'Send Failed',
     sendFailedMessage: 'Please check fleet count, fuel availability, or cargo capacity limits.',
     recallFailed: 'Recall Failed',
@@ -756,6 +761,8 @@ export default {
     officers: 'Officers',
     modifyResources: 'Modify Resources',
     resourcesDesc: 'Quickly modify planet resources',
+    maxAllResources: 'Max All',
+    maxAllResourcesSuccess: 'All resources maxed out',
     modifyBuildings: 'Modify Buildings',
     buildingsDesc: 'Quickly set building levels',
     modifyResearch: 'Modify Research',
@@ -795,7 +802,11 @@ export default {
     dangerZone: 'Danger Zone',
     dangerZoneDesc: 'The following operations are irreversible',
     resetGame: 'Reset Game',
-    resetGameConfirm: 'Are you sure you want to reset the game? This will delete all data!'
+    resetGameConfirm: 'Are you sure you want to reset the game? This will delete all data!',
+    completeAllQueues: 'Complete All Queues',
+    completeAllQueuesDesc: 'Instantly complete all building, research, ship, defense queues and fleet missions',
+    completeQueues: 'Complete Queues',
+    completeQueuesSuccess: 'Completed {buildingCount} building queues, {researchCount} research queues, {missionCount} fleet missions, {missileCount} missile attacks'
   },
   alerts: {
     npcSpyIncoming: 'NPC Spy Probe Incoming',

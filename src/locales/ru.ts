@@ -476,6 +476,11 @@ export default {
     arrivalTime: 'Время прибытия',
     returnTime: 'Время возврата',
     recallFleet: 'Отозвать флот',
+    abortMission: '',
+    abortMissionTitle: '',
+    abortMissionWarning: '',
+    abortMissionSuccess: '',
+    abortMissionSuccessMessage: '',
     sendFailed: 'Отправка не удалась',
     sendFailedMessage: 'Пожалуйста, проверьте количество флота, наличие топлива или ограничения грузоподъёмности.',
     recallFailed: 'Отзыв не удался',
@@ -759,6 +764,8 @@ export default {
     officers: 'Офицеры',
     modifyResources: 'Изменить ресурсы',
     resourcesDesc: 'Быстрое изменение ресурсов планеты',
+    maxAllResources: '',
+    maxAllResourcesSuccess: '',
     modifyBuildings: 'Изменить здания',
     buildingsDesc: 'Быстрая установка уровней зданий',
     modifyResearch: 'Изменить исследования',
@@ -798,7 +805,11 @@ export default {
     dangerZone: 'Опасная зона',
     dangerZoneDesc: 'Следующие операции необратимы',
     resetGame: 'Сбросить игру',
-    resetGameConfirm: 'Вы уверены, что хотите сбросить игру? Все данные будут удалены!'
+    resetGameConfirm: 'Вы уверены, что хотите сбросить игру? Все данные будут удалены!',
+    completeAllQueues: '',
+    completeAllQueuesDesc: '',
+    completeQueues: '',
+    completeQueuesSuccess: ''
   },
   alerts: {
     npcSpyIncoming: 'Приближается шпионский зонд NPC',
