@@ -1,8 +1,10 @@
-name: Deploy Vue Project
+name: 构建Github Pages
 
 on:
   push:
-    branches: [ main ] # 如果你的主分支叫 master，请改为 master
+    branches: [ main ]
+  workflow_dispatch:
+
 
 permissions:
   contents: read
