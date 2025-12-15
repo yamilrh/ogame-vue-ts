@@ -3,11 +3,61 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { VitePWA } from 'vite-plugin-pwa'
+import pkg from './package.json'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(async () => {
-  const plugins = [vue(), tailwindcss()]
+  const plugins = [
+      vue(),
+    tailwindcss(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: pkg.name,
+        short_name: pkg.title,
+        description: '一款现代化 OGame 太空策略游戏',
+        theme_color: '#000000',
+        background_color: '#000000',
+        display: 'fullscreen',
+        orientation: 'any',
+        icons: [
+          {
+            src: 'logo.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any',
+          },
+        ],
+
+      },
+      workbox: {
+        // 关键：确保缓存了 docs 目录下所有的 JS, CSS, HTML 和 媒体文件
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,mp3,wav,json}'],
+
+        // 如果你的游戏资源（如音效或贴图）较大，请根据需要调大这个阈值（默认 2MB）
+        // 这里设置为 5MB
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+
+        // 离线策略优化：对于游戏，我们希望即使在离线状态下，
+        // 所有的资源都能立刻从缓存加载，而不是去请求网络
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === 'image' || request.destination === 'audio',
+            handler: 'CacheFirst', // 优先使用缓存
+            options: {
+              cacheName: 'game-assets',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 缓存 30 天
+              },
+            },
+          },
+        ],
+      }
+    })
+  ];
 
   // 只在 ELECTRON_BUILD 环境变量存在时才加载 Electron 插件
   if (process.env.ELECTRON_BUILD) {

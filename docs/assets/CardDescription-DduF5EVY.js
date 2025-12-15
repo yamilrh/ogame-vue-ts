@@ -1,1 +1,0 @@
-import{En as e,ar as t,kn as n,pn as r,rr as i,un as a}from"./game-logic-BBFCPVtv.js";import{Y as o}from"./index-B4KMqZ_y.js";var s=r({__name:`CardDescription`,props:{class:{}},setup(r){let s=r;return(r,c)=>(e(),a(`p`,{"data-slot":`card-description`,class:t(i(o)(`text-muted-foreground text-sm`,s.class))},[n(r.$slots,`default`)],2))}});export{s as t};
