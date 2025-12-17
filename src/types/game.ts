@@ -574,6 +574,19 @@ export interface Player {
   diplomaticReports?: DiplomaticReport[] // 外交变化报告
   // 新手引导字段
   tutorialProgress?: TutorialProgress // 新手引导进度
+  // 通知设置
+  notificationSettings?: NotificationSettings
+}
+
+export interface NotificationSettings {
+  browser: boolean
+  inApp: boolean
+  suppressInFocus: boolean // 当页面聚焦时是否浏览器通知
+  types: {
+    construction: boolean
+    research: boolean
+    [key: string]: boolean
+  }
 }
 
 // 游戏状态
