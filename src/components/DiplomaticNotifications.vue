@@ -36,14 +36,14 @@
           >
             <div class="flex items-center gap-3">
               <!-- 左侧：事件图标 -->
-              <div class="flex-shrink-0">
+              <div class="shrink-0">
                 <component :is="getEventIcon(report.eventType)" class="h-5 w-5" :class="getEventIconColor(report.eventType)" />
               </div>
               <!-- 中间：主要信息 -->
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2">
                   <span class="font-medium text-sm truncate">{{ report.npcName }}</span>
-                  <Badge :variant="getStatusBadgeVariant(report.newStatus)" class="text-xs flex-shrink-0">
+                  <Badge :variant="getStatusBadgeVariant(report.newStatus)" class="text-xs shrink-0">
                     {{ getStatusText(report.newStatus) }}
                   </Badge>
                 </div>
@@ -52,7 +52,7 @@
                 </p>
               </div>
               <!-- 右侧：好感度变化和时间 -->
-              <div class="flex-shrink-0 text-right">
+              <div class="shrink-0 text-right">
                 <span
                   class="text-sm font-bold block"
                   :class="report.reputationChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'"
@@ -64,7 +64,7 @@
                 </span>
               </div>
               <!-- 未读标记 -->
-              <span v-if="!report.read" class="h-2 w-2 rounded-full bg-destructive flex-shrink-0" />
+              <span v-if="!report.read" class="h-2 w-2 rounded-full bg-destructive shrink-0" />
             </div>
           </div>
         </div>

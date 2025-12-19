@@ -14,7 +14,7 @@
       <div class="bg-card border rounded-lg shadow-lg p-3" role="alert" aria-live="polite">
         <!-- 标题栏 -->
         <div class="flex items-center gap-2 mb-2">
-          <component :is="getIcon(currentHint.icon)" class="h-4 w-4 text-primary flex-shrink-0" />
+          <component :is="getIcon(currentHint.icon)" class="h-4 w-4 text-primary shrink-0" />
           <h4 class="font-medium text-sm">{{ t(currentHint.titleKey) }}</h4>
         </div>
 

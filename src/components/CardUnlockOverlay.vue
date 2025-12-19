@@ -20,8 +20,8 @@
           <AlertDialogDescription>
             <div class="space-y-2">
               <div v-for="(req, index) in requirementsDialogItems" :key="index" class="flex items-center gap-2 text-sm">
-                <Check v-if="req.met" :size="16" class="text-green-500 flex-shrink-0" />
-                <X v-else :size="16" class="text-red-500 flex-shrink-0" />
+                <Check v-if="req.met" :size="16" class="text-green-500 shrink-0" />
+                <X v-else :size="16" class="text-red-500 shrink-0" />
                 <span>{{ req.name }}: Lv {{ req.requiredLevel }} ({{ t('common.current') }}: Lv {{ req.currentLevel }})</span>
               </div>
             </div>
